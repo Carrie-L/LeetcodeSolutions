@@ -1,36 +1,34 @@
+# .github/workflows/update-readme.yml
 name: Update README
 
 on:
-  push:
-    paths:
-      - 'src/**.kt'          # 仅当题目源码变动时跑
-      - '.github/workflows/update-readme.yml'
-  workflow_dispatch: {}
+  workflow_dispatch:
   schedule:
-    - cron: '0 2 * * *'      # 每天 UTC+0 02:00 跑一次
+    - cron: '0 15 * * *'          # 每日 10:00 北京时间
+  push:
+    branches: [ bot-sync ]       # 只有 bot-sync 的改动触发
 
 jobs:
   update-readme:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          ref: bot-sync
 
       - name: Run update script
-        id: updater
         env:
-            LEET_SESSION: ${{ secrets.LEETCODE_SESSION }}
-            LEET_CSRF:    ${{ secrets.CSRFTOKEN }}
+          LEET_SESSION: ${{ secrets.LEETCODE_SESSION }}
+          LEET_CSRF:    ${{ secrets.CSRFTOKEN }}
         run: |
           python scripts/update_readme.py || echo "changed=$?" >> $GITHUB_OUTPUT
 
-      - name: Commit & Push
-        if: steps.updater.outputs.changed == '1'
+      - name: Commit & push
+        if: steps.update-readme.outcome == 'failure'
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
           git commit -m "docs: auto-update README" || echo "No changes"
-          git push
+          git push origin HEAD:bot-sync

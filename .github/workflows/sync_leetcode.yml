@@ -1,26 +1,33 @@
+# .github/workflows/sync_leetcode.yml
 name: Sync Leetcode
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
   schedule:
-    - cron: "0 8 * * 6"
+    - cron: "0 8 * * 6"          # 每周六 16:00 北京时间
+  # ❌ 不再对 main 的 push 触发（可删）
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: bot-sync             # checkout bot-sync 分支
+
       - name: Sync
         uses: joshcai/leetcode-sync@v1.7
         with:
           github-token: ${{ github.token }}
-          leetcode-csrf-token: ${{ secrets.csrftoken }}
+          leetcode-csrf-token: ${{ secrets.CSRFTOKEN }}
           leetcode-session: ${{ secrets.LEETCODE_SESSION }}
           destination-folder: leetcode_sync
-          verbose: true
           single-commit: true
           language-filter: kotlin
           use-slug-folder: true
           commit-header: "[LeetCode Sync]"
+
+      - name: Push to bot-sync
+        run: |
+          git push origin HEAD:bot-sync
