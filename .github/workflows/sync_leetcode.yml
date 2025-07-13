@@ -2,6 +2,8 @@ name: Sync Leetcode
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ main ]
   schedule:
     - cron: "0 8 * * 6"
 
@@ -18,4 +20,7 @@ jobs:
           leetcode-session: ${{ secrets.LEETCODE_SESSION }}
           destination-folder: leetcode_sync
           verbose: true
+          single-commit: true
+          language-filter: kotlin
+          use-slug-folder: true
           commit-header: "[LeetCode Sync]"
