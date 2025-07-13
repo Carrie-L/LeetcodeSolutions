@@ -1,5 +1,5 @@
-package binary_search
-
+package leetcode.binary_search
+// Difficulty: Easy
 /**
  * 教练的硬性要求：
  * 【5分钟计时】： 打开此题，为您自己，上一个【5分钟】的闹钟。

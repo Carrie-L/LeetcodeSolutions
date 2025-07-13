@@ -9,7 +9,7 @@ package leetcode.binary_search
  * [4,5,6,7,0,1,2,3] target=0
  */
 
-object Solution {
+object LC33 {
     fun searchRotatedArray(nums: IntArray, target: Int): Int {
         var low = 0
         var high = nums.size - 1

@@ -1,6 +1,6 @@
 package leetcode.array
 
-import leetcode.binary_search.Solution as BS
+import leetcode.binary_search.LC33 as BS
 
 /** Re-export LC33 under the 'array' topic */
 object Solution33 : (IntArray, Int) -> Int {

@@ -1,6 +1,6 @@
-package binary_search
+package leetcode.binary_search
 
-
+// Difficulty: Easy
 /**
  * O(n)
  */

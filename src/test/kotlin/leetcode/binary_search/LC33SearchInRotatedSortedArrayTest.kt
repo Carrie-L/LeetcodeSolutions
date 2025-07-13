@@ -13,19 +13,19 @@ class LC33SearchInRotatedSortedArrayTest {
 @Test
  fun searchRotatedArray2() {
     val nums = intArrayOf(4,5,6,7,0,1,2,3)
-    assertEquals(4, Solution.searchRotatedArray2(nums, 0))
+    assertEquals(4, LC33.searchRotatedArray2(nums, 0))
  }
 
     @Test
      fun notFound(){
          val nums = intArrayOf(4,5,6,7,0,1,2,3)
-         assertEquals(-1, Solution.searchRotatedArray2(nums, 8))
+         assertEquals(-1, LC33.searchRotatedArray2(nums, 8))
      }
 
     @ParameterizedTest
     @MethodSource("cases")
     fun searchAll(nums:IntArray, target:Int, expected:Int){
-        assertEquals(expected, Solution.searchRotatedArray2(nums, target))
+        assertEquals(expected, LC33.searchRotatedArray2(nums, target))
     }
 
      companion object{

@@ -1,0 +1,5 @@
+- name: Run update script
+  env:
+    LEET_SESSION: ${{ secrets.LEETCODE_SESSION }}
+    LEET_CSRF:    ${{ secrets.CSRFTOKEN }}
+  run: python scripts/update_readme.py || echo "changed=$?" >> $GITHUB_OUTPUT

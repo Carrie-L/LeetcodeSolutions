@@ -1,7 +1,7 @@
-package binary_search
+package leetcode.binary_search
 
 
-object Solution {
+object LC153 {
 
     /**
      * [LeetCode 153. 寻找旋转排序数组中的最小值](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/)
