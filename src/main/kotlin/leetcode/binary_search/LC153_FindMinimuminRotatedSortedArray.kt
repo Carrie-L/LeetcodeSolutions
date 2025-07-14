@@ -17,20 +17,15 @@ object LC153 {
     fun findMin(nums: IntArray): Int {
         var left = 0
         var right = nums.size - 1
-        while (left <= right) {
+        while (left < right) {
             val mid = left + (right - left) / 2
 
             if (nums[mid] > nums[right]) { // 说明mid在左边序列，要往右边查找最小值
                 left = mid + 1
             } else if (nums[mid] < nums[right]) { // 往这个递增序列的左边查最小值
-                right = mid - 1
+                right = mid
             }
-
-            if(nums[mid]==nums[left]){
-                return mid
-            }
-
         }
-        return -1
+        return nums[left]
     }
 }
